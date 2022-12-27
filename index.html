@@ -24,6 +24,27 @@
       </div>
     </div>
     <script>
+       UnityLoader.compatibilityCheck=function(e,t,r){t();};
+
+        var gameInstance = UnityLoader.instantiate("gameContainer", "%UNITY_WEBGL_BUILD_URL%", { onProgress: UnityProgress });
+        function mute() {
+            gameInstance.SendMessage("SoundManager", "muteAll");
+        }
+        function unmute() {
+            gameInstance.SendMessage("SoundManager", "unMuteAll");
+        }
+        function TriggerShareDialogue() {
+            if (navigator.share) {
+                navigator.share({
+                    title: "Test Share",
+                    text: "Sharing Test",
+                    url: "https://akm-img-a-in.tosshub.com/app/games/Christmas_build_v3/index.html",
+                }).then(() => console.log("share success")).catch((error) => console.log(error));
+            }
+            else {
+                alert('Sorry. Sharing not available on your device');
+            }
+        }   
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
